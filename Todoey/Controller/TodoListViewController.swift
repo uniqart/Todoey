@@ -7,21 +7,21 @@
 //
 
 import UIKit
+import CoreData
 
 class TodoListViewController: UITableViewController {
     
-    var itemArray = ["Buy Milk", "Buy Eggs", "Use Butter"]
-    
+    var itemArray = [Item]()
     let defaults = UserDefaults.standard
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        print(dataFilePath)
         
-        if let itmes = defaults.array(forKey: "ToDoListArray") as? [String] {
-            itemArray = itmes
-        }
-        
+        loadItems()
     }
     
     //MARK: - Tableview Datasource Method
@@ -30,9 +30,14 @@ class TodoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
         
-        cell.textLabel?.text = itemArray[indexPath.row]
+        let item = itemArray[indexPath.row]
+        
+        cell.textLabel?.text = item.title
+        
+        cell.accessoryType = item.done ? .checkmark : .none
         
         return cell
     }
@@ -40,25 +45,15 @@ class TodoListViewController: UITableViewController {
     //MARK: - Tableview Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        //        print(itemArray[indexPath.row])
+//        context.delete(itemArray[indexPath.row])
+//        itemArray.remove(at: indexPath.row)
         
-        //        if let cell = tableView.cellForRow(at: indexPath) {
-        //            if cell.accessoryType == .checkmark {
-        //                cell.accessoryType = .none
-        //            } else {
-        //                cell.accessoryType = .checkmark
-        //            }
-        //        }
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
+        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
-        
-        //        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true)
+        
     }
     
     //MARK: - Add New Items
@@ -71,13 +66,14 @@ class TodoListViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             //What will happen once the user clicks the add button on the alert
-
-            self.itemArray.append(textField.text!)
-
-            self.defaults.set(self.itemArray, forKey: "ToDoListArray")
             
-            self.tableView.reloadData()
             
+            let newItem = Item(context: self.context)
+            newItem.title = textField.text!
+            newItem.done = false
+            self.itemArray.append(newItem)
+            
+            self.saveItems()
             
         }
         
@@ -89,10 +85,31 @@ class TodoListViewController: UITableViewController {
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
-
         
+        
+    }
+    
+    //Mark: - Model Maupulation Methods
+    
+    func saveItems() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context \(error)")
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    func loadItems() {
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        
+        do {
+            itemArray = try context.fetch(request)
+        } catch {
+            print("Error fetching contect \(error)")
+        }
     }
     
     
 }
-
