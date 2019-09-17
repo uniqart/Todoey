@@ -11,6 +11,7 @@
 		947CAD1B232F8FD3000E6EF7 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947CAD1A232F8FD3000E6EF7 /* Item.swift */; };
 		947CAD1D232F8FDF000E6EF7 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947CAD1C232F8FDF000E6EF7 /* Category.swift */; };
 		94BAA49E232F2FAB00FD8023 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BAA49D232F2FAB00FD8023 /* CategoryViewController.swift */; };
+		94CCBCED23309A230046DCEC /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CCBCEC23309A230046DCEC /* SwipeTableViewController.swift */; };
 		94DED8BC232001B000CB50CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DED8BB232001B000CB50CC /* AppDelegate.swift */; };
 		94DED8BE232001B000CB50CC /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DED8BD232001B000CB50CC /* TodoListViewController.swift */; };
 		94DED8C1232001B000CB50CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94DED8BF232001B000CB50CC /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 		947CAD1A232F8FD3000E6EF7 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		947CAD1C232F8FDF000E6EF7 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		94BAA49D232F2FAB00FD8023 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		94CCBCEC23309A230046DCEC /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		94DED8B8232001B000CB50CC /* Todoey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94DED8BB232001B000CB50CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94DED8BD232001B000CB50CC /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 			children = (
 				94BAA49D232F2FAB00FD8023 /* CategoryViewController.swift */,
 				94DED8BD232001B000CB50CC /* TodoListViewController.swift */,
+				94CCBCEC23309A230046DCEC /* SwipeTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -166,7 +169,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 94DED8B3232001B000CB50CC /* Build configuration list for PBXProject "Todoey" */;
+			buildConfigurationList = 94DED8B3232001B000CB50CC /* Build configuration list for PBXProject "Kiwii" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -248,6 +251,7 @@
 				947CAD1D232F8FDF000E6EF7 /* Category.swift in Sources */,
 				94BAA49E232F2FAB00FD8023 /* CategoryViewController.swift in Sources */,
 				94DED8BE232001B000CB50CC /* TodoListViewController.swift in Sources */,
+				94CCBCED23309A230046DCEC /* SwipeTableViewController.swift in Sources */,
 				94DED8BC232001B000CB50CC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,7 +409,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = au.com.uniqartworks.Todoey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -424,14 +428,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = au.com.uniqartworks.Todoey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		94DED8B3232001B000CB50CC /* Build configuration list for PBXProject "Todoey" */ = {
+		94DED8B3232001B000CB50CC /* Build configuration list for PBXProject "Kiwii" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94DED8C8232001B300CB50CC /* Debug */,
