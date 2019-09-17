@@ -80,7 +80,7 @@
             </objects>
             <point key="canvasLocation" x="-25" y="33"/>
         </scene>
-        <!--Todoey-->
+        <!--Lists-->
         <scene sceneID="P40-n4-QMg">
             <objects>
                 <tableViewController id="vvM-4R-ahD" customClass="CategoryViewController" customModule="Todoey" customModuleProvider="target" sceneMemberID="viewController">
@@ -103,7 +103,7 @@
                             <outlet property="delegate" destination="vvM-4R-ahD" id="fnt-m0-aa9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Todoey" id="HFT-pb-lTT">
+                    <navigationItem key="navigationItem" title="Lists" id="HFT-pb-lTT">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Px7-uK-y2a">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>

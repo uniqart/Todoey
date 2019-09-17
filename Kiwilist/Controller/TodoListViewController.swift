@@ -32,7 +32,7 @@ class TodoListViewController: SwipeTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         title = selectedCategory?.name
-
+        
         guard let colourHex = selectedCategory?.color else {fatalError()}
         
         updateNavBar(withHexCode: colourHex)
@@ -49,7 +49,7 @@ class TodoListViewController: SwipeTableViewController {
     func updateNavBar(withHexCode colourHexCode: String) {
         
         guard let navBar = navigationController?.navigationBar else { fatalError("Navigation controller does not exist.")}
-
+        
         guard let navBarColour = UIColor(hexString: colourHexCode) else {fatalError()}
         
         navBar.barTintColor = navBarColour
@@ -60,7 +60,7 @@ class TodoListViewController: SwipeTableViewController {
         
         searchBar.barTintColor = navBarColour
         searchBar.backgroundImage = UIImage()
-
+        
         
     }
     
@@ -167,9 +167,15 @@ class TodoListViewController: SwipeTableViewController {
         
         alert.addAction(action)
         
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true) {
+            alert.view.superview?.isUserInteractionEnabled = true
+            alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.alertControllerBackgroundTapped)))
+        }
         
-        
+    }
+    
+    @objc func alertControllerBackgroundTapped() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     //Mark: - Model Maupulation Methods
