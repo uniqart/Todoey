@@ -1,6 +1,6 @@
 //
 //  CategoryViewController.swift
-//  Todoey
+//  Kiwilist
 //
 //  Created by Majid Karimzadeh on 16/9/19.
 //  Copyright © 2019 Uniq Artworks. All rights reserved.
@@ -18,7 +18,7 @@ class CategoryViewController: SwipeTableViewController {
     var categories: Results<Category>?
     
     var selectedColour : String?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -95,7 +95,69 @@ class CategoryViewController: SwipeTableViewController {
             }
         }
         
+        tableView.reloadData()
+        
     }
+    
+    
+    // MARK:  Update Category
+    override func editModel(at indexPath: IndexPath) {
+        
+        if let categoryForEdit = self.categories?[indexPath.row] {
+            
+            var textField = UITextField()
+            
+            let alert = UIAlertController(title: "Edit Your Category", message: "", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "Update Category", style: .default) { (action) in
+                //What will happen once the user clicks the add button on the alert
+                do {
+                    try self.realm.write {
+                        categoryForEdit.name = textField.text!
+                        categoryForEdit.color = (HexColor(self.selectedColour ?? "#f9ca24")?.hexValue() ?? "f9ca24")
+                    }
+                } catch {
+                    print("Error updating category \(error)")
+                }
+                
+                self.tableView.reloadData()
+                
+            }
+            
+            alert.addTextField { (field) in
+                field.placeholder = "Category name"
+                textField = field
+                textField.autocapitalizationType = .words
+                textField.autocorrectionType = .yes
+                
+                // Colour Slider for Category Colour
+                let colorPickerframe = CGRect(x: 0,
+                                              y: 85,
+                                              width: alert.view.frame.size.width - 105,
+                                              height: 30)
+                let colorPicker = ColorPickerView(frame: colorPickerframe)
+                colorPicker.didChangeColor = { color in
+                    //Use color and do the requied.
+                    self.selectedColour = color?.hexValue()
+                    
+                    // Preview the colour on the alert button
+                    alert.view.tintColor = UIColor(hexString: self.selectedColour ?? FlatSkyBlue().hexValue())
+                    
+                }
+                
+                alert.view.addSubview(colorPicker)
+            }
+            
+            alert.addAction(action)
+            
+            present(alert, animated: true) {
+                alert.view.superview?.isUserInteractionEnabled = true
+            }
+            
+        }
+    }
+    
+    
     
     // MARK:  Add New Category
     
@@ -110,14 +172,7 @@ class CategoryViewController: SwipeTableViewController {
             let newCategory = Category()
             newCategory.name = textField.text!
             
-//            let colourArray = ["55efc4", "81ecec", "74b9ff", "a29bfe", "00b894", "00cec9", "0984e3", "6c5ce7", "ffeaa7", "fab1a0", "ff7675", "fd79a8", "fdcb6e", "e17055", "e84393", "f6e58d", "ffbe76", "ff7979", "badc58", "f9ca24", "f0932b", "eb4d4b", "6ab04c", "7ed6df", "e056fd", "686de0", "30336b", "22a6b3", "be2edd", "4834d4", "f3a683", "f7d794", "778beb", "e77f67", "cf6a87", "f19066", "f5cd79", "546de5", "e15f41", "c44569", "786fa6", "f8a5c2", "3dc1d3", "e66767"]
-            
-            
-            //            let randomIndex = Int(arc4random_uniform(UInt32(colourArray.count)))
-            
-            newCategory.color = (HexColor(self.selectedColour ?? "#fff")?.hexValue() ?? "fff")
-            
-            // newCategory.color = UIColor.randomFlat.hexValue()
+            newCategory.color = (HexColor(self.selectedColour ?? "#f9ca24")?.hexValue() ?? "f9ca24")
             
             self.save(category: newCategory)
         }
@@ -129,31 +184,30 @@ class CategoryViewController: SwipeTableViewController {
             textField.autocapitalizationType = .words
             textField.autocorrectionType = .yes
             
-            let colorPickerframe = CGRect(x: 30,
-                                          y: 30,
-                                          width: self.view.frame.size.width - 60,
+            // Colour Slider for Category Colour
+            let colorPickerframe = CGRect(x: 0,
+                                          y: 85,
+                                          width: alert.view.frame.size.width - 105,
                                           height: 30)
             let colorPicker = ColorPickerView(frame: colorPickerframe)
             colorPicker.didChangeColor = { color in
                 //Use color and do the requied.
                 self.selectedColour = color?.hexValue()
+                
+                // Preview the colour on the alert button
+                alert.view.tintColor = UIColor(hexString: self.selectedColour ?? FlatSkyBlue().hexValue())
+                
             }
             
             alert.view.addSubview(colorPicker)
-            
         }
         
         alert.addAction(action)
         
         present(alert, animated: true) {
             alert.view.superview?.isUserInteractionEnabled = true
-            alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.alertControllerBackgroundTapped)))
         }
-
+        
     }
     
-    @objc func alertControllerBackgroundTapped() {
-        self.dismiss(animated: true, completion: nil)
-    }
-
 }

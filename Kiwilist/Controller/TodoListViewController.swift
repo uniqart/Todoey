@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Todoey
+//  Kiwilist
 //
 //  Created by Majid Karimzadeh on 5/9/19.
 //  Copyright © 2019 Uniq Artworks. All rights reserved.
@@ -126,6 +126,8 @@ class TodoListViewController: SwipeTableViewController {
             
         }
         
+        tableView.reloadData()
+        
     }
     
     
@@ -135,7 +137,7 @@ class TodoListViewController: SwipeTableViewController {
         
         var textField = UITextField()
         
-        let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add New Item", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             //What will happen once the user clicks the add button on the alert

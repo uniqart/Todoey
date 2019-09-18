@@ -8,6 +8,7 @@
 
 import UIKit
 import SwipeCellKit
+import ChameleonFramework
 
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate {
     
@@ -31,29 +32,53 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     // MARK:  Swipe Action
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        guard orientation == .right else { return nil }
-        
-        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
-            // handle action by updating model with deletion
+        if orientation == .right {
+          
+            let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+                // handle action by updating model with deletion
+                
+                self.updateModel(at: indexPath)
+                                
+            }
+            // customize the action appearance
+            deleteAction.image = UIImage(named: "garbage-icon")
             
-            self.updateModel(at: indexPath)
+            return [deleteAction]
+            
         }
-        // customize the action appearance
-        deleteAction.image = UIImage(named: "delete-icon")
         
-        return [deleteAction]
+        else {
+            
+            let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
+                // handle action by updating model with deletion
+                
+                self.editModel(at: indexPath)
+            }
+            // customize the action appearance
+            editAction.image = UIImage(named: "edit-icon")
+            
+            editAction.backgroundColor = FlatYellowDark()
+            
+            return [editAction]
+        
+        }
+    
     }
     
     // MARK:  Swipe with .destructive style
     
-    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
-        var options = SwipeOptions()
-        options.expansionStyle = .destructive
-        return options
-    }
+//    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+//        var options = SwipeOptions()
+//        options.expansionStyle = .destructive
+//        return options
+//    }
     
     func updateModel(at indexPath: IndexPath) {
         //Update our dataModel
+    }
+    
+    func editModel(at indexPath: IndexPath) {
+        //Edit our dataModel
     }
     
 }
